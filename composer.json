@@ -1,0 +1,48 @@
+{
+    "name": "uxgood/polyfill-framework",
+    "type": "library",
+    "description": "Polyfill Symfony Framework Librarys",
+    "keywords": [],
+    "homepage": "https://github.com/uxgood/polyfill-framework.git",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "UxGood",
+            "email": "uxgood.org@gmail.com"
+        }
+    ],
+    "require": {
+    },
+    "require-dev": {
+    },
+    "provide": {
+        "symfony/polyfill-ctype": "1.0",
+        "symfony/polyfill-iconv": "1.0",
+        "symfony/polyfill-intl": "1.0",
+        "symfony/polyfill-mbstring": "1.0"
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-intl": "*",
+        "symfony/polyfill-mbstring": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "UxGood\\Bundle\\FrameworkBundle\\": ""
+        },
+        "exclude-from-classmap": [
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    }
+}
