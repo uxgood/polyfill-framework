@@ -8,7 +8,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait as BaseMicroKernelTrait;
 
-use Symfony\Component\HttpKernel\DependencyInjection\AddAnnotatedClassesToCachePass;
+//use Symfony\Component\HttpKernel\DependencyInjection\AddAnnotatedClassesToCachePass;
 
 trait MicroKernelTrait
 {
@@ -24,7 +24,7 @@ trait MicroKernelTrait
             $container->merge($cont);
         }
 
-        $container->addCompilerPass(new AddAnnotatedClassesToCachePass($this));
+        //$container->addCompilerPass(new AddAnnotatedClassesToCachePass($this));
 
         return $container;
     }
@@ -33,6 +33,11 @@ trait MicroKernelTrait
     {
         $this->container = $this->buildContainer();
         $this->container->compile();
+        $arg = $this->container->getDefinition('router')->getArgument(2);
+        $arg['cache_dir'] = null;
+        $arg['generator_cache_class'] = null;
+        $arg['matcher_cache_class'] = null;
+        $this->container->getDefinition('router')->replaceArgument(2, $arg);
         $this->container->set('kernel', $this);
     }
 }
