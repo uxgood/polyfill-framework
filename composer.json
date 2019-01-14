@@ -16,7 +16,8 @@
     },
     "autoload": {
         "psr-4": {
-            "UxGood\\Bundle\\FrameworkBundle\\": ""
+            "UxGood\\Bundle\\FrameworkBundle\\Kernel\\": "./Kernel",
+            "UxGood\\Component\\Cache\\": "./Cache"
         },
         "exclude-from-classmap": [
         ]

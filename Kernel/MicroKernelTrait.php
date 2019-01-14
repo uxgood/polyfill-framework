@@ -10,6 +10,11 @@ use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait as BaseMicroKernelTra
 
 //use Symfony\Component\HttpKernel\DependencyInjection\AddAnnotatedClassesToCachePass;
 
+use Symfony\Component\Cache\DependencyInjection\CachePoolPass;
+use Symfony\Component\Cache\DependencyInjection\CachePoolClearerPass;
+use Symfony\Component\Cache\DependencyInjection\CachePoolPrunerPass;
+use Symfony\Component\Cache\DependencyInjection\CacheCollectorPass;
+
 trait MicroKernelTrait
 {
     use BaseMicroKernelTrait;
@@ -18,6 +23,7 @@ trait MicroKernelTrait
     {
         $container = $this->getContainerBuilder();
         $container->addObjectResource($this);
+        $this->loadClassAlias();
         $this->prepareContainer($container);
 
         if (null !== $cont = $this->registerContainerConfiguration($this->getContainerLoader($container))) {
@@ -39,5 +45,14 @@ trait MicroKernelTrait
         $arg['matcher_cache_class'] = null;
         $this->container->getDefinition('router')->replaceArgument(2, $arg);
         $this->container->set('kernel', $this);
+    }
+
+    protected function loadClassAlias()
+    {
+        foreach(array(CachePoolPass::class,CachePoolClearerPass::class,CachePoolPrunerPass::class,CacheCollectorPass::class) as $class_name) {
+            if(!class_exists($class_name)) {
+                class_alias(str_replace('Symfony\\', 'UxGood\\', $class_name), $class_name);
+            }
+        }
     }
 }
